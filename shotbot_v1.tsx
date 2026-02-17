@@ -852,7 +852,7 @@ const ShotBot = () => {
           <div className={`max-w-[760px] mx-auto rounded-3xl border border-gray-700/80 overflow-hidden transition-[background-color,backdrop-filter,border-color] duration-200 min-w-0 bg-gray-900/40 hover:border-cyan-600 ${headerScrolled ? 'backdrop-blur-md' : ''}`}>
             {/* Upload Zone */}
             <label className="block" data-cursor-label="Drop here">
-              <div className={`group/upload relative py-8 px-12 transition-all ${uploadedImage ? 'bg-cyan-500/10' : 'hover:bg-gray-800/30'}`}>
+              <div className={`group/upload relative py-6 sm:py-8 px-12 transition-all ${uploadedImage ? 'bg-cyan-500/10' : 'hover:bg-gray-800/30'}`}>
                 {!uploadedImage ? (
                   <div className="flex justify-center items-center">
                     <div className="flex items-center gap-6">
@@ -861,7 +861,7 @@ const ShotBot = () => {
                       </div>
                       <div className="text-left">
                         <div>
-                          <h3 className="font-headline text-2xl font-normal mb-1">
+                          <h3 className="font-headline text-xl sm:text-2xl font-normal mb-1">
                           <span className="sm:hidden">Upload your shot here</span>
                           <span className="hidden sm:inline">Drop your shot here</span>
                         </h3>
