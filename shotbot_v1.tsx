@@ -1296,6 +1296,9 @@ const ShotBot = () => {
                       ) : (
                         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 opacity-90" />
                       )}
+                      <span className="sm:hidden absolute bottom-3 left-3 bg-black text-white text-xs font-medium px-3 py-1.5 rounded-full">
+                        Get prompt
+                      </span>
                     </button>
                   </div>
                   {/* Name + description: hover shows cursor pill "See example", click opens example modal (same as Ask AI Tutor) */}
@@ -1340,6 +1343,9 @@ const ShotBot = () => {
                           />
                         </div>
                       </div>
+                      <span className="sm:hidden absolute bottom-3 left-3 bg-black text-white text-xs font-medium px-3 py-1.5 rounded-full">
+                        Get prompt
+                      </span>
                     </button>
                     <div className="mt-3 text-left">
                       <div className="font-semibold text-white text-base">{preset.name}</div>
