@@ -847,7 +847,7 @@ const ShotBot = () => {
 
       <div className="max-w-7xl mx-auto px-6 pb-12 w-full min-w-0 box-border">
         {/* Photo upload and main content */}
-        <div ref={uploadRef} className={`mb-16 sticky top-24 z-30 min-w-0 reveal-on-scroll reveal-order-1 ${uploadInView ? 'reveal-in' : ''}`}>
+        <div ref={uploadRef} className={`mb-8 sm:mb-16 sticky top-24 z-30 min-w-0 reveal-on-scroll reveal-order-1 ${uploadInView ? 'reveal-in' : ''}`}>
           {/* Main Input Area */}
           <div className={`max-w-[760px] mx-auto rounded-3xl border border-gray-700/80 overflow-hidden transition-[background-color,backdrop-filter,border-color] duration-200 min-w-0 bg-gray-900/40 hover:border-cyan-600 ${headerScrolled ? 'backdrop-blur-md' : ''}`}>
             {/* Upload Zone */}
@@ -861,7 +861,10 @@ const ShotBot = () => {
                       </div>
                       <div className="text-left">
                         <div>
-                          <h3 className="font-headline text-2xl font-normal mb-1">Drop your shot here</h3>
+                          <h3 className="font-headline text-2xl font-normal mb-1">
+                          <span className="sm:hidden">Upload your shot here</span>
+                          <span className="hidden sm:inline">Drop your shot here</span>
+                        </h3>
                           <p className="hidden sm:block text-gray-400 text-sm">or click to browse • JPG, PNG • Max 10MB</p>
                         </div>
                       </div>
