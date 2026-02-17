@@ -252,6 +252,7 @@ const ShotBot = () => {
   const [showTutor, setShowTutor] = useState(false);
   const [lensPreviewLens, setLensPreviewLens] = useState<string | null>(null);
   const [lightingPreviewLighting, setLightingPreviewLighting] = useState<string | null>(null);
+  const [lightingImageError, setLightingImageError] = useState(false);
   const [cameraBodyPreviewBody, setCameraBodyPreviewBody] = useState<string | null>(null);
   const [infoModal, setInfoModal] = useState<'aperture' | 'iso' | 'shutter' | 'lighting' | null>(null);
   const [compositionPreviewId, setCompositionPreviewId] = useState<string | null>(null);
@@ -1072,6 +1073,7 @@ const ShotBot = () => {
                               data-cursor-label="See example"
                               onClick={(e) => {
                                 e.stopPropagation();
+                                setLightingImageError(false);
                                 setLightingPreviewLighting(l.value);
                               }}
                             >
@@ -1473,21 +1475,32 @@ const ShotBot = () => {
       {lightingPreviewLighting !== null && (() => {
         const lighting = ADVANCED.lighting.find(l => l.value === lightingPreviewLighting);
         const detail = LIGHTING_MODAL_ITEMS.find(m => m.label === lighting?.label);
-        const imageSrc = LIGHTING_PREVIEW_IMAGES[lightingPreviewLighting];
+        const imagePath = LIGHTING_PREVIEW_IMAGES[lightingPreviewLighting];
+        const imageSrc = imagePath && typeof window !== 'undefined' ? window.location.origin + imagePath : imagePath;
         return (
-          <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setLightingPreviewLighting(null)}>
+          <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => { setLightingPreviewLighting(null); setLightingImageError(false); }}>
 <div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-lg w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
             <div className="p-4 border-b border-gray-800 flex items-center justify-between">
               <h3 className="font-headline font-normal text-white">
                   {lighting?.label ?? lightingPreviewLighting} – example
                 </h3>
-                <button type="button" onClick={() => setLightingPreviewLighting(null)} className="text-gray-400 hover:text-white p-1" aria-label="Close" data-cursor-label="Close">
+                <button type="button" onClick={() => { setLightingPreviewLighting(null); setLightingImageError(false); }} className="text-gray-400 hover:text-white p-1" aria-label="Close" data-cursor-label="Close">
                   <X className="w-6 h-6" />
                 </button>
               </div>
-              {imageSrc && (
+              {imagePath && (
                 <div className="p-4 flex items-center justify-center min-h-[200px] bg-gray-950">
-                  <img src={imageSrc} alt="" className="max-w-full max-h-[60vh] w-auto h-auto object-contain rounded-lg" />
+                  {lightingImageError ? (
+                    <p className="text-gray-500 text-sm">Example image could not be loaded.</p>
+                  ) : (
+                    <img
+                      src={imageSrc}
+                      alt=""
+                      className="max-w-full max-h-[60vh] w-auto h-auto object-contain rounded-lg"
+                      loading="eager"
+                      onError={() => setLightingImageError(true)}
+                    />
+                  )}
                 </div>
               )}
               <div className="p-4 border-t border-gray-800">
