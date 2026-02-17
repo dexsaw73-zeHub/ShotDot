@@ -977,7 +977,13 @@ const ShotBot = () => {
                             key={b.value}
                             type="button"
                             data-cursor-label={b.value === 'auto' ? undefined : 'Select'}
-                            onClick={() => setAdvancedCamera({ ...advancedCamera, body: b.value })}
+                            onClick={() => {
+                              if (typeof window !== 'undefined' && window.innerWidth < 640) {
+                                if (b.value !== 'auto') setCameraBodyPreviewBody(b.value);
+                              } else {
+                                setAdvancedCamera({ ...advancedCamera, body: b.value });
+                              }
+                            }}
                             className={`p-4 rounded-xl text-left border transition-all ${advancedCamera.body === b.value ? 'bg-cyan-500/15 border-cyan-800 text-white' : 'bg-gray-700/30 border-gray-600 text-gray-300'}`}
                           >
                             <span
@@ -1003,7 +1009,13 @@ const ShotBot = () => {
                             key={l.value}
                             type="button"
                             data-cursor-label={l.value === 'auto' ? undefined : 'Select'}
-                            onClick={() => setAdvancedCamera({ ...advancedCamera, lens: l.value })}
+                            onClick={() => {
+                              if (typeof window !== 'undefined' && window.innerWidth < 640) {
+                                if (l.value !== 'auto') setLensPreviewLens(l.value);
+                              } else {
+                                setAdvancedCamera({ ...advancedCamera, lens: l.value });
+                              }
+                            }}
                             className={`p-4 rounded-xl text-left border transition-all ${advancedCamera.lens === l.value ? 'bg-cyan-500/15 border-cyan-800 text-white' : 'bg-gray-700/30 border-gray-600 text-gray-300'}`}
                           >
                             <span
@@ -1134,7 +1146,13 @@ const ShotBot = () => {
                             key={l.value}
                             type="button"
                             data-cursor-label="Select"
-                            onClick={() => setAdvancedCamera({ ...advancedCamera, lighting: l.value })}
+                            onClick={() => {
+                              if (typeof window !== 'undefined' && window.innerWidth < 640) {
+                                setLightingPreviewLighting(l.value);
+                              } else {
+                                setAdvancedCamera({ ...advancedCamera, lighting: l.value });
+                              }
+                            }}
                             className={`p-4 rounded-xl text-left border transition-all ${advancedCamera.lighting === l.value ? 'bg-cyan-500/15 border-cyan-800 text-white' : 'bg-gray-700/30 border-gray-600 text-gray-300'}`}
                           >
                             <span
@@ -1170,7 +1188,13 @@ const ShotBot = () => {
                             key={c.id}
                             type="button"
                             data-cursor-label="Select"
-                            onClick={() => setAdvancedComposition({ ...advancedComposition, primary: advancedComposition.primary === c.id ? null : c.id })}
+                            onClick={() => {
+                              if (typeof window !== 'undefined' && window.innerWidth < 640) {
+                                setCompositionPreviewId(c.id);
+                              } else {
+                                setAdvancedComposition({ ...advancedComposition, primary: advancedComposition.primary === c.id ? null : c.id });
+                              }
+                            }}
                             className={`p-4 rounded-xl text-left border transition-all ${advancedComposition.primary === c.id ? 'bg-cyan-500/15 border-cyan-800 text-white' : 'bg-gray-700/30 border-gray-600 text-gray-300'}`}
                             title={c.tooltip}
                           >
@@ -1198,10 +1222,14 @@ const ShotBot = () => {
                             type="button"
                             data-cursor-label="Select"
                             onClick={() => {
-                              const next = advancedComposition.secondary?.includes(c.id)
-                                ? (advancedComposition.secondary || []).filter(x => x !== c.id)
-                                : (advancedComposition.secondary || []).length < 2 ? [...(advancedComposition.secondary || []), c.id] : advancedComposition.secondary || [];
-                              setAdvancedComposition({ ...advancedComposition, secondary: next });
+                              if (typeof window !== 'undefined' && window.innerWidth < 640) {
+                                setCompositionSecondaryPreviewId(c.id);
+                              } else {
+                                const next = advancedComposition.secondary?.includes(c.id)
+                                  ? (advancedComposition.secondary || []).filter(x => x !== c.id)
+                                  : (advancedComposition.secondary || []).length < 2 ? [...(advancedComposition.secondary || []), c.id] : advancedComposition.secondary || [];
+                                setAdvancedComposition({ ...advancedComposition, secondary: next });
+                              }
                             }}
                             disabled={!advancedComposition.secondary?.includes(c.id) && (advancedComposition.secondary?.length || 0) >= 2}
                             className={`p-4 rounded-xl text-left border transition-all disabled:opacity-50 ${advancedComposition.secondary?.includes(c.id) ? 'bg-cyan-500/15 border-cyan-800 text-white' : 'bg-gray-700/30 border-gray-600 text-gray-300'}`}
@@ -1229,7 +1257,13 @@ const ShotBot = () => {
                             key={s.value}
                             type="button"
                             data-cursor-label="Select"
-                            onClick={() => setAdvancedComposition({ ...advancedComposition, strength: s.value })}
+                            onClick={() => {
+                              if (typeof window !== 'undefined' && window.innerWidth < 640) {
+                                setCompositionStrengthPreview(s.value);
+                              } else {
+                                setAdvancedComposition({ ...advancedComposition, strength: s.value });
+                              }
+                            }}
                             className={`p-4 rounded-xl text-left border transition-all ${(advancedComposition.strength ?? '') === s.value ? 'bg-cyan-500/15 border-cyan-800 text-white' : 'bg-gray-700/30 border-gray-600 text-gray-300'}`}
                           >
                             <span
@@ -1550,6 +1584,18 @@ const ShotBot = () => {
                 <p className="text-sm text-gray-300 font-light leading-relaxed">{ADVANCED.cameraBodies.find(x => x.value === cameraBodyPreviewBody)?.tag}</p>
               </div>
             )}
+            <div className="p-4 border-t border-gray-800">
+              <button
+                type="button"
+                onClick={() => {
+                  setAdvancedCamera({ ...advancedCamera, body: cameraBodyPreviewBody });
+                  setCameraBodyPreviewBody(null);
+                }}
+                className="w-full py-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 font-medium text-white sm:hidden"
+              >
+                Select {(() => { const b = ADVANCED.cameraBodies.find(x => x.value === cameraBodyPreviewBody); return b?.brand ? `${b.brand} ${b.label}` : b?.label; })()}
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -1577,6 +1623,18 @@ const ShotBot = () => {
               <p className="text-sm text-gray-300 font-light leading-relaxed">
                 {LIGHTING_MODAL_ITEMS.find(m => m.label === ADVANCED.lighting.find(l => l.value === lightingPreviewLighting)?.label)?.description ?? ADVANCED.lighting.find(l => l.value === lightingPreviewLighting)?.line ?? 'No description available.'}
               </p>
+            </div>
+            <div className="p-4 border-t border-gray-800">
+              <button
+                type="button"
+                onClick={() => {
+                  setAdvancedCamera({ ...advancedCamera, lighting: lightingPreviewLighting });
+                  setLightingPreviewLighting(null);
+                }}
+                className="w-full py-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 font-medium text-white sm:hidden"
+              >
+                Select {ADVANCED.lighting.find(l => l.value === lightingPreviewLighting)?.label}
+              </button>
             </div>
           </div>
         </div>
@@ -1611,6 +1669,18 @@ const ShotBot = () => {
                 </p>
               </div>
             )}
+            <div className="p-4 border-t border-gray-800">
+              <button
+                type="button"
+                onClick={() => {
+                  setAdvancedCamera({ ...advancedCamera, lens: lensPreviewLens });
+                  setLensPreviewLens(null);
+                }}
+                className="w-full py-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 font-medium text-white sm:hidden"
+              >
+                Select {ADVANCED.lenses.find(l => l.value === lensPreviewLens)?.label}
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -1639,6 +1709,18 @@ const ShotBot = () => {
                 <p className="text-sm text-gray-300 font-light leading-relaxed">{ADVANCED.compositionPrimary.find(c => c.id === compositionPreviewId)?.tooltip}</p>
               </div>
             )}
+            <div className="p-4 border-t border-gray-800">
+              <button
+                type="button"
+                onClick={() => {
+                  setAdvancedComposition({ ...advancedComposition, primary: compositionPreviewId });
+                  setCompositionPreviewId(null);
+                }}
+                className="w-full py-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 font-medium text-white sm:hidden"
+              >
+                Select {ADVANCED.compositionPrimary.find(c => c.id === compositionPreviewId)?.label}
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -1663,6 +1745,21 @@ const ShotBot = () => {
               )}
               <div className="p-4 border-t border-gray-800">
                 <p className="text-sm text-gray-300 font-light leading-relaxed">{c?.tooltip ?? 'No description available.'}</p>
+              </div>
+              <div className="p-4 border-t border-gray-800">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const next = advancedComposition.secondary?.includes(compositionSecondaryPreviewId)
+                      ? (advancedComposition.secondary || []).filter(x => x !== compositionSecondaryPreviewId)
+                      : (advancedComposition.secondary || []).length < 2 ? [...(advancedComposition.secondary || []), compositionSecondaryPreviewId] : advancedComposition.secondary || [];
+                    setAdvancedComposition({ ...advancedComposition, secondary: next });
+                    setCompositionSecondaryPreviewId(null);
+                  }}
+                  className="w-full py-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 font-medium text-white sm:hidden"
+                >
+                  Select {c?.label}
+                </button>
               </div>
             </div>
           </div>
@@ -1689,6 +1786,18 @@ const ShotBot = () => {
               )}
               <div className="p-4 border-t border-gray-800">
                 <p className="text-sm text-gray-300 font-light leading-relaxed">{s?.desc ?? 'No description available.'}</p>
+              </div>
+              <div className="p-4 border-t border-gray-800">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAdvancedComposition({ ...advancedComposition, strength: compositionStrengthPreview });
+                    setCompositionStrengthPreview(null);
+                  }}
+                  className="w-full py-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 font-medium text-white sm:hidden"
+                >
+                  Select {s?.label}
+                </button>
               </div>
             </div>
           </div>
