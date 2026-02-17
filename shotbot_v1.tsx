@@ -730,19 +730,14 @@ const ShotBot = () => {
       </header>
       {/* Black box: overflow-hidden so rounded-2xl clips content; pt reserves space for fixed nav */}
       <div className="min-h-[calc(100vh-30px)] w-full max-w-full bg-black text-white rounded-2xl flex flex-col box-border overflow-hidden pt-[84px]">
-      {!ANTHROPIC_API_KEY && (
-        <div className="bg-amber-500/20 border-b border-amber-500/50 px-6 py-3 text-center text-sm text-amber-200">
-          To use photo analysis, variations, and the AI tutor: set <code className="bg-black/30 px-1.5 py-0.5 rounded">ANTHROPIC_API_KEY</code> in Vercel (Environment Variables) when deployed, or <code className="bg-black/30 px-1.5 py-0.5 rounded">VITE_ANTHROPIC_API_KEY</code> in <code className="bg-black/30 px-1.5 py-0.5 rounded">.env</code> for local dev.
-        </div>
-      )}
       {/* Hero: -mt pulls background under fixed nav so hero fills top; pt keeps headline below nav */}
       <div ref={heroRef} className={`min-h-[445px] flex flex-col relative reveal-on-scroll reveal-order-0 pt-[84px] -mt-[84px] ${heroInView ? 'reveal-in' : ''}`}>
         {/* Bloom layer: blurred lens for subtle cyan glow from speckles (slower parallax) */}
         <div
-          className="absolute inset-0 bg-cover bg-no-repeat opacity-[0.32] pointer-events-none transition-transform duration-300 ease-out"
+          className="absolute inset-0 bg-cover bg-no-repeat bg-top opacity-[0.32] pointer-events-none transition-transform duration-300 ease-out"
           style={{
             backgroundImage: 'linear-gradient(180deg, rgba(34, 211, 238, 0.12) 0%, transparent 50%), url(/hero-lens.png)',
-            backgroundPosition: '50% 50%',
+            backgroundPosition: '50% 0%',
             filter: 'blur(20px)',
             transform: `translateY(${(cardScrollProgress.hero - 0.5) * 50}px)`,
           }}
@@ -750,13 +745,13 @@ const ShotBot = () => {
         />
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
           <div
-            className="absolute left-0 right-0 top-[-35%] h-[170%] transition-transform duration-300 ease-out"
+            className="absolute left-0 right-0 top-0 h-[170%] transition-transform duration-300 ease-out"
             style={{ transform: `translateY(${(cardScrollProgress.hero - 0.5) * 140}px)` }}
           >
             <img
               src="/hero-lens.png"
               alt=""
-              className="absolute inset-0 w-full h-full object-cover opacity-60 animate-lens-drift"
+              className="absolute inset-0 w-full h-full object-cover object-top opacity-60 animate-lens-drift"
             />
           </div>
         </div>
