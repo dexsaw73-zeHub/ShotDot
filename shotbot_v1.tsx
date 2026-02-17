@@ -423,7 +423,7 @@ const ShotBot = () => {
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       setCursorPos({ x: e.clientX, y: e.clientY });
-      setCursorLabel(getCursorLabel(e.target));
+      setCursorLabel(typeof window !== 'undefined' && window.innerWidth >= 640 ? getCursorLabel(e.target) : null);
     };
     const onEnter = () => setCursorVisible(true);
     const onLeave = () => setCursorVisible(false);
@@ -715,11 +715,11 @@ const ShotBot = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0e1618] p-[15px] cursor-none custom-cursor-root" data-custom-cursor>
+    <div className="min-h-screen bg-[#0e1618] p-[15px] cursor-auto sm:cursor-none custom-cursor-root" data-custom-cursor>
       <div className="overflow-x-hidden" style={{ minHeight: '100%' }}>
       <div
         ref={cursorRef}
-        className={`fixed top-0 left-0 pointer-events-none z-[9999] transition-all duration-200 ease-out flex items-center justify-center ${cursorLabel ? (cursorLabel === 'See example' ? 'bg-black px-3 py-1.5 rounded-full border border-gray-700/80' : 'bg-cyan-500 px-3 py-1.5 rounded-full') : 'w-2 h-2 rounded-full bg-white'}`}
+        className={`hidden sm:flex fixed top-0 left-0 pointer-events-none z-[9999] transition-all duration-200 ease-out items-center justify-center ${cursorLabel ? (cursorLabel === 'See example' ? 'bg-black px-3 py-1.5 rounded-full border border-gray-700/80' : 'bg-cyan-500 px-3 py-1.5 rounded-full') : 'w-2 h-2 rounded-full bg-white'}`}
         style={{
           transform: `translate(${cursorPos.x}px, ${cursorPos.y}px) translate(-50%, -50%)`,
           opacity: cursorVisible ? 1 : 0,
