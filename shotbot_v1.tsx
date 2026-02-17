@@ -33,13 +33,6 @@ import iphone15Img from './images/camera body/iPhone 15 Pro.png';
 import ruleOfThirdsImg from './images/composition/rule_of_thirds.png';
 import centerFramingImg from './images/composition/center_framing.png';
 import negativeSpaceImg from './images/composition/negative_space.png';
-import softWindowLightImg from './images/lighting/soft_window_light.png';
-import studioSoftboxImg from './images/lighting/studio_softbox.png';
-import hardFlashImg from './images/lighting/hard_flash.png';
-import goldenHourLightingImg from './images/lighting/golden__hour.png';
-import overcastDaylightImg from './images/lighting/overcast_daylight.png';
-import neonCityGlowImg from './images/lighting/neon_city_glow.png';
-import mixedLightingImg from './images/lighting/mixed_lighting.png';
 import leadingLinesImg from './images/enhancers/leading_lines.png';
 import depthEmphasisImg from './images/enhancers/depth_emphasis.png';
 import subtleStrengthImg from './images/compositionStrength/subtle.png';
@@ -135,15 +128,15 @@ const COMPOSITION_STRENGTH_PREVIEW_IMAGES: Record<string, string> = {
   'Strong': strongStrengthImg,
 };
 
-/** Lighting value -> example image (imported from images/lighting/). */
+/** Lighting value -> example image. Served from public/images/lighting/ for reliable loading on deploy. */
 const LIGHTING_PREVIEW_IMAGES: Record<string, string> = {
-  'soft-window': softWindowLightImg,
-  'softbox': studioSoftboxImg,
-  'hard-flash': hardFlashImg,
-  'golden-hour': goldenHourLightingImg,
-  'overcast': overcastDaylightImg,
-  'neon': neonCityGlowImg,
-  'mixed': mixedLightingImg,
+  'soft-window': '/images/lighting/soft_window_light.png',
+  'softbox': '/images/lighting/studio_softbox.png',
+  'hard-flash': '/images/lighting/hard_flash.png',
+  'golden-hour': '/images/lighting/golden__hour.png',
+  'overcast': '/images/lighting/overcast_daylight.png',
+  'neon': '/images/lighting/neon_city_glow.png',
+  'mixed': '/images/lighting/mixed_lighting.png',
 };
 
 /** Lens value -> example image URL. Place images in public/images/lens/ (named to match lens type). */
