@@ -750,7 +750,8 @@ const ShotBot = () => {
                 data-cursor-label="Go to Photographer Style"
                 className={`py-2 px-3 rounded-full text-sm font-medium transition-colors duration-300 ${navPhotographersActive ? 'text-cyan-400' : 'text-white hover:text-cyan-400/90'}`}
               >
-                Shoot like a pro
+                <span className="sm:hidden">Like a pro</span>
+                <span className="hidden sm:inline">Shoot like a pro</span>
               </button>
               <button
                 type="button"
@@ -758,7 +759,8 @@ const ShotBot = () => {
                 data-cursor-label="Go to Prompt presets"
                 className={`py-2 px-3 rounded-full text-sm font-medium transition-colors duration-300 ${navPresetsActive ? 'text-cyan-400' : 'text-white hover:text-cyan-400/90'}`}
               >
-                Prompt presets
+                <span className="sm:hidden">Presets</span>
+                <span className="hidden sm:inline">Prompt presets</span>
               </button>
               <button
                 onClick={() => setShowTutor(true)}
@@ -766,7 +768,7 @@ const ShotBot = () => {
                 className="group flex items-center gap-2 px-4 py-2 rounded-full bg-gray-900/60 border border-gray-700/80 hover:border-cyan-600 hover:bg-gray-800/50 transition-colors"
               >
                 <MessageCircle className="w-4 h-4 text-white transition-colors duration-300 group-hover:text-cyan-400" />
-                <span className="text-sm text-white">Ask AI Tutor</span>
+                <span className="text-sm text-white">Ask AI</span>
               </button>
             </div>
           </nav>
