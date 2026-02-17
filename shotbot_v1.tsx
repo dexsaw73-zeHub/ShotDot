@@ -704,7 +704,7 @@ const ShotBot = () => {
       >
         <div className="max-w-[760px] mx-auto px-6 py-3">
           <nav
-            className="flex items-center justify-between rounded-full bg-black py-2.5 pl-5 pr-2.5 h-[60px] shadow-inner"
+            className="flex items-center justify-between rounded-full bg-black py-2.5 pl-5 pr-2.5 h-[60px] shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.2),0_4px_18px_rgba(255,255,255,0.12)]"
             aria-label="Main"
           >
             <div
@@ -737,16 +737,16 @@ const ShotBot = () => {
           className="absolute inset-0 bg-cover bg-no-repeat bg-top opacity-[0.32] pointer-events-none transition-transform duration-300 ease-out"
           style={{
             backgroundImage: 'linear-gradient(180deg, rgba(34, 211, 238, 0.12) 0%, transparent 50%), url(/hero-lens.png)',
-            backgroundPosition: '50% 0%',
+            backgroundPosition: '50% -12%',
             filter: 'blur(20px)',
-            transform: `translateY(${(cardScrollProgress.hero - 0.5) * 50}px)`,
+            transform: `translateY(calc(-8% + ${(cardScrollProgress.hero - 0.5) * 50}px))`,
           }}
           aria-hidden
         />
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
           <div
-            className="absolute left-0 right-0 top-0 h-[170%] transition-transform duration-300 ease-out"
-            style={{ transform: `translateY(${(cardScrollProgress.hero - 0.5) * 140}px)` }}
+            className="absolute left-0 right-0 top-0 h-[190%] transition-transform duration-300 ease-out"
+            style={{ transform: `translateY(calc(-12% + ${(cardScrollProgress.hero - 0.5) * 140}px))` }}
           >
             <img
               src="/hero-lens.png"
@@ -764,10 +764,12 @@ const ShotBot = () => {
           />
         </div>
         <div className="absolute inset-0 bg-black/50" aria-hidden />
-        {/* Soft fade at bottom to avoid harsh cut */}
+        {/* Soft fade at bottom to avoid harsh cut — taller gradient for smoother transition */}
         <div
-          className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
-          style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.98) 0%, transparent 100%)' }}
+          className="absolute inset-x-0 bottom-0 h-48 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0.4) 55%, transparent 100%)',
+          }}
           aria-hidden
         />
         <div className="flex-1 flex items-center justify-center relative">
@@ -801,7 +803,7 @@ const ShotBot = () => {
         {/* Photo upload and main content */}
         <div ref={uploadRef} className={`mb-16 sticky top-24 z-30 min-w-0 reveal-on-scroll reveal-order-1 ${uploadInView ? 'reveal-in' : ''}`}>
           {/* Main Input Area */}
-          <div className={`max-w-[760px] mx-auto rounded-3xl border-[1px] border-gray-700/80 overflow-hidden transition-[background-color,backdrop-filter,border-color] duration-200 min-w-0 bg-gray-900/40 hover:border-cyan-600 ${headerScrolled ? 'backdrop-blur-md' : ''}`}>
+          <div className={`max-w-[760px] mx-auto rounded-3xl border border-gray-700/80 overflow-hidden transition-[background-color,backdrop-filter,border-color] duration-200 min-w-0 bg-gray-900/40 hover:border-cyan-600 ${headerScrolled ? 'backdrop-blur-md' : ''}`}>
             {/* Upload Zone */}
             <label className="block" data-cursor-label="Drop here">
               <div className={`group/upload relative py-8 px-12 transition-all ${uploadedImage ? 'bg-cyan-500/10' : 'hover:bg-gray-800/30'}`}>
@@ -862,7 +864,7 @@ const ShotBot = () => {
 
         {/* Advanced Controls — pro camera panel, collapsed by default */}
         {!uploadedImage && (
-          <div ref={advancedRef} className={`mb-16 max-w-[760px] mx-auto bg-gray-900/40 rounded-3xl border-[1px] border-gray-700/80 overflow-hidden shadow-lg min-w-0 reveal-on-scroll reveal-order-2 transition-[border-color] duration-200 hover:border-cyan-600 ${advancedInView ? 'reveal-in' : ''}`}>
+          <div ref={advancedRef} className={`mb-16 max-w-[760px] mx-auto bg-gray-900/40 rounded-3xl border border-gray-700/80 overflow-hidden shadow-lg min-w-0 reveal-on-scroll reveal-order-2 transition-[border-color] duration-200 hover:border-cyan-600 ${advancedInView ? 'reveal-in' : ''}`}>
             <button
               onClick={() => {
                 const opening = !showAdvanced;
