@@ -1476,34 +1476,33 @@ const ShotBot = () => {
         </div>
       )}
 
-      {/* Lighting preview modal – same pattern as camera body / composition (imported images, bundled by Vite) */}
-      {lightingPreviewLighting !== null && (() => {
-        const lighting = ADVANCED.lighting.find(l => l.value === lightingPreviewLighting);
-        const detail = LIGHTING_MODAL_ITEMS.find(m => m.label === lighting?.label);
-        const imageSrc = LIGHTING_PREVIEW_IMAGES[lightingPreviewLighting];
-        return (
-          <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setLightingPreviewLighting(null)}>
-            <div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-lg w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
-              <div className="p-4 border-b border-gray-800 flex items-center justify-between">
-                <h3 className="font-headline font-normal text-white">
-                  {lighting?.label ?? lightingPreviewLighting} – example
-                </h3>
-                <button type="button" onClick={() => setLightingPreviewLighting(null)} className="text-gray-400 hover:text-white p-1" aria-label="Close" data-cursor-label="Close">
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-              {imageSrc ? (
-                <div className="p-4 flex items-center justify-center min-h-[200px] bg-gray-950">
-                  <img src={imageSrc} alt="" className="max-w-full max-h-[60vh] w-auto h-auto object-contain rounded-lg" />
-                </div>
-              ) : null}
-              <div className="p-4 border-t border-gray-800">
-                <p className="text-sm text-gray-300 font-light leading-relaxed">{detail?.description ?? lighting?.line ?? 'No description available.'}</p>
-              </div>
+      {/* Lighting preview modal – identical structure to camera body modal */}
+      {lightingPreviewLighting !== null && (
+        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setLightingPreviewLighting(null)}>
+          <div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-lg w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
+            <div className="p-4 border-b border-gray-800 flex items-center justify-between">
+              <h3 className="font-headline font-normal text-white">
+                {ADVANCED.lighting.find(l => l.value === lightingPreviewLighting)?.label ?? lightingPreviewLighting} – example
+              </h3>
+              <button type="button" onClick={() => setLightingPreviewLighting(null)} className="text-gray-400 hover:text-white p-1" aria-label="Close" data-cursor-label="Close">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <div className="p-4 flex items-center justify-center min-h-[200px] bg-gray-950">
+              {LIGHTING_PREVIEW_IMAGES[lightingPreviewLighting] ? (
+                <img src={LIGHTING_PREVIEW_IMAGES[lightingPreviewLighting]} alt="" className="max-w-full max-h-[60vh] w-auto h-auto object-contain rounded-lg" />
+              ) : (
+                <p className="text-gray-500 text-sm">Example image not available for this lighting yet.</p>
+              )}
+            </div>
+            <div className="p-4 border-t border-gray-800">
+              <p className="text-sm text-gray-300 font-light leading-relaxed">
+                {LIGHTING_MODAL_ITEMS.find(m => m.label === ADVANCED.lighting.find(l => l.value === lightingPreviewLighting)?.label)?.description ?? ADVANCED.lighting.find(l => l.value === lightingPreviewLighting)?.line ?? 'No description available.'}
+              </p>
             </div>
           </div>
-        );
-      })()}
+        </div>
+      )}
 
       {/* Lens preview modal */}
       {lensPreviewLens !== null && (
