@@ -1367,7 +1367,7 @@ const ShotBot = () => {
 
         {/* Quick Start Presets */}
         {!uploadedImage && (
-          <div ref={presetsRef} className={`scroll-mt-[100px] mb-16 reveal-on-scroll reveal-order-4 ${presetsInView ? 'reveal-in' : ''}`}>
+          <div ref={presetsRef} className={`scroll-mt-[100px] mb-6 sm:mb-16 reveal-on-scroll reveal-order-4 ${presetsInView ? 'reveal-in' : ''}`}>
             <h3 className="font-headline text-2xl font-normal mb-6">Or start with a preset</h3>
             <div className="relative">
               <div className="reveal-stagger flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
@@ -1868,7 +1868,7 @@ const ShotBot = () => {
       )}
 
       {/* Footer — Palmer-style continuous marquee */}
-      <footer ref={footerRef} className={`border-t border-gray-800 mt-20 reveal-on-scroll reveal-order-6 ${footerInView ? 'reveal-in' : ''}`}>
+      <footer ref={footerRef} className={`border-t border-gray-800 mt-8 sm:mt-20 reveal-on-scroll reveal-order-6 ${footerInView ? 'reveal-in' : ''}`}>
         <div className="overflow-hidden py-8">
           <div className="flex animate-footer-marquee w-max">
             {[1, 2].map((block) => (
