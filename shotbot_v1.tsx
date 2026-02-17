@@ -412,6 +412,12 @@ const ShotBot = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  /** On mobile, modals are full-screen and only the close button dismisses; overlay click does nothing. */
+  const closeModalOnOverlay = (close: () => void) => (e: React.MouseEvent) => {
+    if (e.target !== e.currentTarget) return;
+    if (typeof window !== 'undefined' && window.innerWidth >= 640) close();
+  };
+
   // Intro is in index.html (static overlay). Content is visible from load so curtain reveals it.
 
   useEffect(() => {
@@ -1390,7 +1396,7 @@ const ShotBot = () => {
 
       {/* Your Prompt Modal */}
       {generatedPrompt && (
-        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => { setGeneratedPrompt(''); setSelectedPreset(null); setSelectedPhotographer(null); }}>
+        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeModalOnOverlay(() => { setGeneratedPrompt(''); setSelectedPreset(null); setSelectedPhotographer(null); })}>
           <div className="modal-content bg-black rounded-3xl max-w-2xl w-full max-h-[80vh] flex flex-col border border-gray-800 shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
             <div className="p-6 border-b border-gray-800 flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -1435,7 +1441,7 @@ const ShotBot = () => {
 
       {/* Photographer example modal (image + example prompt) */}
       {examplePhotographer && (
-        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setExamplePhotographer(null)}>
+        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeModalOnOverlay(() => setExamplePhotographer(null))}>
           <div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-lg w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
             <div className="p-5 border-b border-gray-800 flex items-center justify-between">
               <h3 className="font-headline font-normal text-white">Example output in the style of {examplePhotographer.name}</h3>
@@ -1468,7 +1474,7 @@ const ShotBot = () => {
 
       {/* Info modal (Aperture / ISO / Shutter) */}
       {infoModal !== null && (
-        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setInfoModal(null)}>
+        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeModalOnOverlay(() => setInfoModal(null))}>
           <div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-md w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
             <div className="p-5 border-b border-gray-800 flex items-center justify-between">
               <h3 className="font-headline font-normal text-white">{infoModal === 'iso' ? 'ISO' : infoModal === 'aperture' ? 'Aperture' : infoModal === 'shutter' ? 'Shutter Speed' : 'Lighting'}</h3>
@@ -1498,7 +1504,7 @@ const ShotBot = () => {
 
       {/* Camera body preview modal */}
       {cameraBodyPreviewBody !== null && (
-        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setCameraBodyPreviewBody(null)}>
+        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeModalOnOverlay(() => setCameraBodyPreviewBody(null))}>
           <div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-lg w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
             <div className="p-4 border-b border-gray-800 flex items-center justify-between">
               <h3 className="font-headline font-normal text-white">
@@ -1530,7 +1536,7 @@ const ShotBot = () => {
 
       {/* Lighting preview modal – identical structure to camera body modal */}
       {lightingPreviewLighting !== null && (
-        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setLightingPreviewLighting(null)}>
+        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeModalOnOverlay(() => setLightingPreviewLighting(null))}>
           <div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-lg w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
             <div className="p-4 border-b border-gray-800 flex items-center justify-between">
               <h3 className="font-headline font-normal text-white">
@@ -1558,7 +1564,7 @@ const ShotBot = () => {
 
       {/* Lens preview modal */}
       {lensPreviewLens !== null && (
-        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setLensPreviewLens(null)}>
+        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeModalOnOverlay(() => setLensPreviewLens(null))}>
           <div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-lg w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
             <div className="p-4 border-b border-gray-800 flex items-center justify-between">
               <h3 className="font-headline font-normal text-white">
@@ -1591,7 +1597,7 @@ const ShotBot = () => {
 
       {/* Composition primary preview modal */}
       {compositionPreviewId !== null && (
-        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setCompositionPreviewId(null)}>
+        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeModalOnOverlay(() => setCompositionPreviewId(null))}>
           <div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-lg w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
             <div className="p-4 border-b border-gray-800 flex items-center justify-between">
               <h3 className="font-headline font-normal text-white">
@@ -1622,7 +1628,7 @@ const ShotBot = () => {
         const c = ADVANCED.compositionSecondary.find(x => x.id === compositionSecondaryPreviewId);
         const imageSrc = ENHANCERS_PREVIEW_IMAGES[compositionSecondaryPreviewId];
         return (
-          <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setCompositionSecondaryPreviewId(null)}>
+          <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeModalOnOverlay(() => setCompositionSecondaryPreviewId(null))}>
             <div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-lg w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
               <div className="p-4 border-b border-gray-800 flex items-center justify-between">
                 <h3 className="font-headline font-normal text-white">{c?.label ?? compositionSecondaryPreviewId} – example</h3>
@@ -1648,7 +1654,7 @@ const ShotBot = () => {
         const s = ADVANCED.compositionStrength.find(x => x.value === compositionStrengthPreview);
         const imageSrc = COMPOSITION_STRENGTH_PREVIEW_IMAGES[compositionStrengthPreview];
         return (
-          <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setCompositionStrengthPreview(null)}>
+          <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeModalOnOverlay(() => setCompositionStrengthPreview(null))}>
             <div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-lg w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
               <div className="p-4 border-b border-gray-800 flex items-center justify-between">
                 <h3 className="font-headline font-normal text-white">{s?.label ?? compositionStrengthPreview} – example</h3>
@@ -1671,7 +1677,7 @@ const ShotBot = () => {
 
       {/* AI Tutor Modal */}
       {showTutor && (
-        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setShowTutor(false)}>
+        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeModalOnOverlay(() => setShowTutor(false))}>
           <div className="modal-content bg-black rounded-3xl max-w-2xl w-full max-h-[80vh] flex flex-col border border-gray-800 shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
             <div className="p-6 border-b border-gray-800 flex items-center justify-between">
               <div className="flex items-center gap-3">
