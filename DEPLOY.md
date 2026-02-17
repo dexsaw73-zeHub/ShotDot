@@ -1,5 +1,37 @@
 # Deploying ShotBot
 
+## Updating the live site (push your changes)
+
+Your live site (e.g. shot-dot.vercel.app) is linked to GitHub. When you send your latest code to GitHub, Vercel updates the site automatically. You don’t have to click “Deploy” anywhere.
+
+**Steps:**
+
+1. **Save your work** in Cursor.
+2. **Open the terminal** in Cursor: **Terminal → New Terminal** (panel at the bottom).
+3. **Run these three commands**, one at a time (copy, paste, press Enter):
+
+   **First** – collect the files you changed:
+   ```
+   git add .
+   ```
+
+   **Second** – save a snapshot with a short note (you can change the message in quotes):
+   ```
+   git commit -m "My updates"
+   ```
+
+   **Third** – send that snapshot to GitHub:
+   ```
+   git push
+   ```
+   (You must run `git push` in **your** terminal so GitHub can use your sign-in; the AI can’t push for you.)
+
+4. **Wait a minute or two** – Vercel will rebuild the site. Refresh your live URL to see the changes.
+
+**In short:** Save → `git add .` → `git commit -m "My updates"` → `git push` (in your terminal) → wait → check the live site.
+
+---
+
 ## Vercel (recommended)
 
 1. Push your code and import the project in [Vercel](https://vercel.com).
