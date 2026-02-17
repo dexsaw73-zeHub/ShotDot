@@ -33,6 +33,13 @@ import iphone15Img from './images/camera body/iPhone 15 Pro.png';
 import ruleOfThirdsImg from './images/composition/rule_of_thirds.png';
 import centerFramingImg from './images/composition/center_framing.png';
 import negativeSpaceImg from './images/composition/negative_space.png';
+import softWindowLightImg from './images/lighting/soft_window_light.png';
+import studioSoftboxImg from './images/lighting/studio_softbox.png';
+import hardFlashImg from './images/lighting/hard_flash.png';
+import goldenHourLightingImg from './images/lighting/golden__hour.png';
+import overcastDaylightImg from './images/lighting/overcast_daylight.png';
+import neonCityGlowImg from './images/lighting/neon_city_glow.png';
+import mixedLightingImg from './images/lighting/mixed_lighting.png';
 import leadingLinesImg from './images/enhancers/leading_lines.png';
 import depthEmphasisImg from './images/enhancers/depth_emphasis.png';
 import subtleStrengthImg from './images/compositionStrength/subtle.png';
@@ -128,15 +135,15 @@ const COMPOSITION_STRENGTH_PREVIEW_IMAGES: Record<string, string> = {
   'Strong': strongStrengthImg,
 };
 
-/** Lighting value -> example image. Served from public/images/lighting/ for reliable loading on deploy. */
+/** Lighting value -> example image (imported, same as camera body / composition so they bundle and work on deploy). */
 const LIGHTING_PREVIEW_IMAGES: Record<string, string> = {
-  'soft-window': '/images/lighting/soft_window_light.png',
-  'softbox': '/images/lighting/studio_softbox.png',
-  'hard-flash': '/images/lighting/hard_flash.png',
-  'golden-hour': '/images/lighting/golden__hour.png',
-  'overcast': '/images/lighting/overcast_daylight.png',
-  'neon': '/images/lighting/neon_city_glow.png',
-  'mixed': '/images/lighting/mixed_lighting.png',
+  'soft-window': softWindowLightImg,
+  'softbox': studioSoftboxImg,
+  'hard-flash': hardFlashImg,
+  'golden-hour': goldenHourLightingImg,
+  'overcast': overcastDaylightImg,
+  'neon': neonCityGlowImg,
+  'mixed': mixedLightingImg,
 };
 
 /** Lens value -> example image URL. Place images in public/images/lens/ (named to match lens type). */
@@ -252,7 +259,6 @@ const ShotBot = () => {
   const [showTutor, setShowTutor] = useState(false);
   const [lensPreviewLens, setLensPreviewLens] = useState<string | null>(null);
   const [lightingPreviewLighting, setLightingPreviewLighting] = useState<string | null>(null);
-  const [lightingImageError, setLightingImageError] = useState(false);
   const [cameraBodyPreviewBody, setCameraBodyPreviewBody] = useState<string | null>(null);
   const [infoModal, setInfoModal] = useState<'aperture' | 'iso' | 'shutter' | 'lighting' | null>(null);
   const [compositionPreviewId, setCompositionPreviewId] = useState<string | null>(null);
@@ -1073,7 +1079,6 @@ const ShotBot = () => {
                               data-cursor-label="See example"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                setLightingImageError(false);
                                 setLightingPreviewLighting(l.value);
                               }}
                             >
@@ -1471,38 +1476,27 @@ const ShotBot = () => {
         </div>
       )}
 
-      {/* Lighting preview modal */}
+      {/* Lighting preview modal – same pattern as camera body / composition (imported images, bundled by Vite) */}
       {lightingPreviewLighting !== null && (() => {
         const lighting = ADVANCED.lighting.find(l => l.value === lightingPreviewLighting);
         const detail = LIGHTING_MODAL_ITEMS.find(m => m.label === lighting?.label);
-        const imagePath = LIGHTING_PREVIEW_IMAGES[lightingPreviewLighting];
-        const imageSrc = imagePath && typeof window !== 'undefined' ? window.location.origin + imagePath : imagePath;
+        const imageSrc = LIGHTING_PREVIEW_IMAGES[lightingPreviewLighting];
         return (
-          <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => { setLightingPreviewLighting(null); setLightingImageError(false); }}>
-<div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-lg w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
-            <div className="p-4 border-b border-gray-800 flex items-center justify-between">
-              <h3 className="font-headline font-normal text-white">
+          <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setLightingPreviewLighting(null)}>
+            <div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-lg w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
+              <div className="p-4 border-b border-gray-800 flex items-center justify-between">
+                <h3 className="font-headline font-normal text-white">
                   {lighting?.label ?? lightingPreviewLighting} – example
                 </h3>
-                <button type="button" onClick={() => { setLightingPreviewLighting(null); setLightingImageError(false); }} className="text-gray-400 hover:text-white p-1" aria-label="Close" data-cursor-label="Close">
+                <button type="button" onClick={() => setLightingPreviewLighting(null)} className="text-gray-400 hover:text-white p-1" aria-label="Close" data-cursor-label="Close">
                   <X className="w-6 h-6" />
                 </button>
               </div>
-              {imagePath && (
+              {imageSrc ? (
                 <div className="p-4 flex items-center justify-center min-h-[200px] bg-gray-950">
-                  {lightingImageError ? (
-                    <p className="text-gray-500 text-sm">Example image could not be loaded.</p>
-                  ) : (
-                    <img
-                      src={imageSrc}
-                      alt=""
-                      className="max-w-full max-h-[60vh] w-auto h-auto object-contain rounded-lg"
-                      loading="eager"
-                      onError={() => setLightingImageError(true)}
-                    />
-                  )}
+                  <img src={imageSrc} alt="" className="max-w-full max-h-[60vh] w-auto h-auto object-contain rounded-lg" />
                 </div>
-              )}
+              ) : null}
               <div className="p-4 border-t border-gray-800">
                 <p className="text-sm text-gray-300 font-light leading-relaxed">{detail?.description ?? lighting?.line ?? 'No description available.'}</p>
               </div>
