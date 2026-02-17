@@ -276,6 +276,7 @@ const ShotBot = () => {
   const [selectedPreset, setSelectedPreset] = useState(null);
   const [selectedPhotographer, setSelectedPhotographer] = useState(null);
   const [examplePhotographer, setExamplePhotographer] = useState(null);
+  const [examplePreset, setExamplePreset] = useState(null);
   const [headerScrolled, setHeaderScrolled] = useState(false);
   // Intro is handled by static overlay in index.html (guaranteed to run). React intro state kept for useReveal.
   const [showIntro, setShowIntro] = useState(false);
@@ -1302,15 +1303,24 @@ const ShotBot = () => {
                     </button>
                   </div>
                   {/* Name + description: hover shows cursor pill "See example", click opens example modal (same as Ask AI Tutor) */}
-                  <button
-                    type="button"
-                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setExamplePhotographer(ph); }}
-                    data-cursor-label="See example"
-                    className="mt-3 text-left w-full block hover:opacity-90 transition-opacity"
-                  >
-                    <div className="font-semibold text-white text-base">{ph.name}</div>
-                    <div className="text-xs text-gray-300">{ph.style}</div>
-                  </button>
+                  <div className="mt-3 text-left w-full">
+                    <button
+                      type="button"
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); setExamplePhotographer(ph); }}
+                      data-cursor-label="See example"
+                      className="w-full block hover:opacity-90 transition-opacity text-left"
+                    >
+                      <div className="font-semibold text-white text-base">{ph.name}</div>
+                      <div className="text-xs text-gray-300">{ph.style}</div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); setExamplePhotographer(ph); }}
+                      className="sm:hidden text-cyan-400 hover:text-cyan-300 text-xs font-medium mt-1 transition-colors"
+                    >
+                      See example
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -1349,6 +1359,13 @@ const ShotBot = () => {
                     </button>
                     <div className="mt-3 text-left">
                       <div className="font-semibold text-white text-base">{preset.name}</div>
+                      <button
+                        type="button"
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); setExamplePreset(preset); }}
+                        className="sm:hidden text-cyan-400 hover:text-cyan-300 text-xs font-medium mt-1 transition-colors"
+                      >
+                        See example
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -1473,6 +1490,24 @@ const ShotBot = () => {
                   <a href="https://labs.google/fx/tools/image-fx" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition-colors underline">ImageFX</a>
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Preset example modal (example prompt text) */}
+      {examplePreset && (
+        <div className="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeModalOnOverlay(() => setExamplePreset(null))}>
+          <div className="modal-content bg-black rounded-3xl border border-gray-800 max-w-lg w-full overflow-hidden shadow-2xl shadow-gray-900/70" onClick={e => e.stopPropagation()}>
+            <div className="p-5 border-b border-gray-800 flex items-center justify-between">
+              <h3 className="font-headline font-normal text-white">Example: {examplePreset.name}</h3>
+              <button type="button" onClick={() => setExamplePreset(null)} className="text-gray-400 hover:text-white p-1" aria-label="Close" data-cursor-label="Close">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <div className="p-5">
+              <p className="text-xs text-gray-400 mb-2">Example prompt</p>
+              <p className="text-sm text-gray-200 leading-relaxed">{examplePreset.prompt}</p>
             </div>
           </div>
         </div>
