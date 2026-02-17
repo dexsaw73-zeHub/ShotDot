@@ -391,6 +391,27 @@ const ShotBot = () => {
     };
   }, []);
 
+  // Nav section highlight: cyan when section is in view, white when scrolled away
+  const [photographersNavInView, setPhotographersNavInView] = useState(false);
+  const [presetsNavInView, setPresetsNavInView] = useState(false);
+  useEffect(() => {
+    const phEl = photographerRef?.current;
+    const prEl = presetsRef?.current;
+    if (!phEl || !prEl) return;
+    const opts = { rootMargin: '-80px 0px -50% 0px', threshold: 0 };
+    const obsPh = new IntersectionObserver(([e]) => setPhotographersNavInView(!!e?.isIntersecting), opts);
+    const obsPr = new IntersectionObserver(([e]) => setPresetsNavInView(!!e?.isIntersecting), opts);
+    obsPh.observe(phEl);
+    obsPr.observe(prEl);
+    return () => { obsPh.disconnect(); obsPr.disconnect(); };
+  }, []);
+  const navPhotographersActive = photographersNavInView && !presetsNavInView;
+  const navPresetsActive = presetsNavInView;
+
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   // Intro is in index.html (static overlay). Content is visible from load so curtain reveals it.
 
   useEffect(() => {
@@ -722,14 +743,32 @@ const ShotBot = () => {
                 <circle cx="12" cy="12" r="1.2" fill="#eab308"/>
               </svg>
             </div>
-            <button
-              onClick={() => setShowTutor(true)}
-              data-cursor-label="Let's chat"
-              className="group flex items-center gap-2 px-4 py-2 rounded-full bg-gray-900/60 border border-gray-700/80 hover:border-cyan-600 hover:bg-gray-800/50 transition-colors"
-            >
-              <MessageCircle className="w-4 h-4 text-white transition-colors duration-300 group-hover:text-cyan-400" />
-              <span className="text-sm text-white">Ask AI Tutor</span>
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => scrollToSection(photographerRef)}
+                data-cursor-label="Go to Photographer Style"
+                className={`py-2 px-3 rounded-full text-sm font-medium transition-colors duration-300 ${navPhotographersActive ? 'text-cyan-400' : 'text-white hover:text-cyan-400/90'}`}
+              >
+                Shoot like a pro
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToSection(presetsRef)}
+                data-cursor-label="Go to Prompt presets"
+                className={`py-2 px-3 rounded-full text-sm font-medium transition-colors duration-300 ${navPresetsActive ? 'text-cyan-400' : 'text-white hover:text-cyan-400/90'}`}
+              >
+                Prompt presets
+              </button>
+              <button
+                onClick={() => setShowTutor(true)}
+                data-cursor-label="Let's chat"
+                className="group flex items-center gap-2 px-4 py-2 rounded-full bg-gray-900/60 border border-gray-700/80 hover:border-cyan-600 hover:bg-gray-800/50 transition-colors"
+              >
+                <MessageCircle className="w-4 h-4 text-white transition-colors duration-300 group-hover:text-cyan-400" />
+                <span className="text-sm text-white">Ask AI Tutor</span>
+              </button>
+            </div>
           </nav>
         </div>
       </header>
@@ -1208,7 +1247,7 @@ const ShotBot = () => {
 
         {/* Photographer Style */}
         {!uploadedImage && (
-          <div ref={photographerRef} className={`mb-16 reveal-on-scroll reveal-order-3 ${photographerInView ? 'reveal-in' : ''}`}>
+          <div ref={photographerRef} className={`scroll-mt-[100px] mb-16 reveal-on-scroll reveal-order-3 ${photographerInView ? 'reveal-in' : ''}`}>
             <h3 className="font-headline text-2xl font-normal mb-6">Photographer Style</h3>
             <div className="reveal-stagger flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
               {photographers.map((ph, i) => (
@@ -1263,7 +1302,7 @@ const ShotBot = () => {
 
         {/* Quick Start Presets */}
         {!uploadedImage && (
-          <div ref={presetsRef} className={`mb-16 reveal-on-scroll reveal-order-4 ${presetsInView ? 'reveal-in' : ''}`}>
+          <div ref={presetsRef} className={`scroll-mt-[100px] mb-16 reveal-on-scroll reveal-order-4 ${presetsInView ? 'reveal-in' : ''}`}>
             <h3 className="font-headline text-2xl font-normal mb-6">Or start with a preset</h3>
             <div className="relative">
               <div className="reveal-stagger flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
