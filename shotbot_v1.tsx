@@ -40,6 +40,11 @@ import goldenHourLightingImg from './images/lighting/golden__hour.png';
 import overcastDaylightImg from './images/lighting/overcast_daylight.png';
 import neonCityGlowImg from './images/lighting/neon_city_glow.png';
 import mixedLightingImg from './images/lighting/mixed_lighting.png';
+import portraitLensImg from './images/lens/portrait.png';
+import editorialLensImg from './images/lens/editorial.png';
+import cinematicLensImg from './images/lens/Cinematic.png';
+import wideLensImg from './images/lens/Wide.png';
+import telephotoLensImg from './images/lens/Telephoto.png';
 import leadingLinesImg from './images/enhancers/leading_lines.png';
 import depthEmphasisImg from './images/enhancers/depth_emphasis.png';
 import subtleStrengthImg from './images/compositionStrength/subtle.png';
@@ -146,14 +151,14 @@ const LIGHTING_PREVIEW_IMAGES: Record<string, string> = {
   'mixed': mixedLightingImg,
 };
 
-/** Lens value -> example image URL. Place images in public/images/lens/ (named to match lens type). */
+/** Lens value -> example image (imported, same as camera body / lighting so they bundle and work on deploy). */
 const LENS_PREVIEW_IMAGES: Record<string, string> = {
-  'auto': '/images/lens/auto.png',
-  '85mm': '/images/lens/portrait.png',
-  '50mm': '/images/lens/editorial.png',
-  '35mm': '/images/lens/cinematic.png',
-  '24mm': '/images/lens/wide.png',
-  '135mm': '/images/lens/telephoto.png',
+  'auto': portraitLensImg,
+  '85mm': portraitLensImg,
+  '50mm': editorialLensImg,
+  '35mm': cinematicLensImg,
+  '24mm': wideLensImg,
+  '135mm': telephotoLensImg,
 };
 
 /** Camera body value -> example image (imported from images/camera body/). */
