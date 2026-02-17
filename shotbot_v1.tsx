@@ -820,7 +820,7 @@ const ShotBot = () => {
         />
         <div className="flex-1 flex items-center justify-center relative">
           <div className="max-w-7xl mx-auto px-6 w-full text-center">
-            <h2 className="font-headline text-6xl font-normal mb-4 text-white min-h-[1.2em]">
+            <h2 className="font-headline text-4xl sm:text-6xl font-normal mb-4 text-white min-h-[1.2em]">
               {HERO_HEADLINES[headlineIndex].slice(0, typewriterHeadlineLen)}
               {typewriterHeadlineLen < HERO_HEADLINES[headlineIndex].length && (
                 <span className="animate-typewriter-cursor">|</span>
@@ -862,7 +862,7 @@ const ShotBot = () => {
                       <div className="text-left">
                         <div>
                           <h3 className="font-headline text-2xl font-normal mb-1">Drop your shot here</h3>
-                          <p className="text-gray-400 text-sm">or click to browse • JPG, PNG • Max 10MB</p>
+                          <p className="hidden sm:block text-gray-400 text-sm">or click to browse • JPG, PNG • Max 10MB</p>
                         </div>
                       </div>
                     </div>
@@ -926,7 +926,10 @@ const ShotBot = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 shrink-0 text-cyan-500 transition-colors duration-300 group-hover:text-cyan-600" aria-hidden>
                   <path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"/>
                 </svg>
-                <h3 className="font-headline font-normal text-white">Advanced Controls – Dial in your shot like a real photographer</h3>
+                <h3 className="font-headline font-normal text-white">
+                  <span className="sm:hidden">Advanced Controls</span>
+                  <span className="hidden sm:inline">Advanced Controls – Dial in your shot like a real photographer</span>
+                </h3>
               </div>
               <div className="flex items-center">
                 {showAdvanced ? <ChevronUp className="w-5 h-5 text-gray-400 transition-colors duration-300 group-hover:text-cyan-500" /> : <ChevronDown className="w-5 h-5 text-gray-400 transition-colors duration-300 group-hover:text-cyan-500" />}
