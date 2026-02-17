@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap" rel="stylesheet" />
+    <title>ShotBot – AI Photography Prompts</title>
+  </head>
+  <body>
+    <!-- Intro overlay: visible before React, animated and removed by script (guaranteed to run) -->
+    <div id="intro-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:2147483647;background:#000;display:flex;align-items:center;justify-content:center;transition:transform 0.7s cubic-bezier(0.25,0.1,0.25,1);">
+      <svg id="intro-scan-svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+        <circle cx="12" cy="12" r="1.2" fill="#eab308" style="fill:#eab308"/>
+      </svg>
+    </div>
+    <style>
+      @keyframes intro-scan-spin {
+        0% { transform: rotate(0deg); }
+        17% { transform: rotate(360deg); }
+        100% { transform: rotate(360deg); }
+      }
+      @keyframes intro-scan-fade-out {
+        0% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+    </style>
+    <div id="root"></div>
+    <script>
+      (function() {
+        var overlay = document.getElementById('intro-overlay');
+        var svg = document.getElementById('intro-scan-svg');
+        var delay = 2400;
+        var duration = 700;
+        if (window.location.search.indexOf('intro=fast') !== -1) { delay = 1600; duration = 500; }
+        if (window.location.search.indexOf('intro=long') !== -1) { delay = 8000; duration = 1200; }
+        var delaySec = delay / 1000;
+        var fadeStart = Math.max(0, delaySec - 0.5);
+        svg.style.animation = 'intro-scan-spin ' + delaySec + 's ease-in-out, intro-scan-fade-out 0.5s ease-out ' + fadeStart + 's forwards';
+        overlay.style.transition = 'transform ' + (duration/1000) + 's cubic-bezier(0.25,0.1,0.25,1)';
+        setTimeout(function() { overlay.style.transform = 'translateY(-100%)'; }, delay);
+        setTimeout(function() { overlay.remove(); }, delay + duration);
+      })();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
