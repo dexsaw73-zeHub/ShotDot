@@ -744,24 +744,24 @@ const ShotBot = () => {
               </svg>
             </div>
             <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => scrollToSection(photographerRef)}
-                data-cursor-label="Go to Photographer Style"
-                className={`py-2 px-3 rounded-full text-sm font-medium transition-colors duration-300 ${navPhotographersActive ? 'text-cyan-400' : 'text-white hover:text-cyan-400/90'}`}
-              >
-                <span className="sm:hidden">Like a pro</span>
-                <span className="hidden sm:inline">Shoot like a pro</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollToSection(presetsRef)}
-                data-cursor-label="Go to Prompt presets"
-                className={`py-2 px-3 rounded-full text-sm font-medium transition-colors duration-300 ${navPresetsActive ? 'text-cyan-400' : 'text-white hover:text-cyan-400/90'}`}
-              >
-                <span className="sm:hidden">Presets</span>
-                <span className="hidden sm:inline">Prompt presets</span>
-              </button>
+              <div className="hidden sm:flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => scrollToSection(photographerRef)}
+                  data-cursor-label="Go to Photographer Style"
+                  className={`py-2 px-3 rounded-full text-sm font-medium transition-colors duration-300 ${navPhotographersActive ? 'text-cyan-400' : 'text-white hover:text-cyan-400/90'}`}
+                >
+                  Shoot like a pro
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollToSection(presetsRef)}
+                  data-cursor-label="Go to Prompt presets"
+                  className={`py-2 px-3 rounded-full text-sm font-medium transition-colors duration-300 ${navPresetsActive ? 'text-cyan-400' : 'text-white hover:text-cyan-400/90'}`}
+                >
+                  Prompt presets
+                </button>
+              </div>
               <button
                 onClick={() => setShowTutor(true)}
                 data-cursor-label="Let's chat"
