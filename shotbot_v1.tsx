@@ -1265,7 +1265,10 @@ const ShotBot = () => {
         {!uploadedImage && (
           <div ref={photographerRef} className={`scroll-mt-[100px] mb-16 reveal-on-scroll reveal-order-3 ${photographerInView ? 'reveal-in' : ''}`}>
             <h3 className="font-headline text-2xl font-normal mb-6">Photographer Style</h3>
-            <div className="reveal-stagger flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+            <div className="relative">
+              <div className="absolute left-0 top-0 bottom-4 w-16 bg-gradient-to-r from-black to-transparent pointer-events-none z-10" aria-hidden />
+              <div className="absolute right-0 top-0 bottom-4 w-16 bg-gradient-to-l from-black to-transparent pointer-events-none z-10" aria-hidden />
+              <div className="reveal-stagger flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
               {photographers.map((ph, i) => (
                 <div key={ph.name} className="flex-shrink-0 w-64">
                   {/* Card image: blur/scale only when hovering this area (Get prompt) */}
@@ -1324,6 +1327,7 @@ const ShotBot = () => {
                   </div>
                 </div>
               ))}
+              </div>
             </div>
           </div>
         )}
@@ -1333,6 +1337,8 @@ const ShotBot = () => {
           <div ref={presetsRef} className={`scroll-mt-[100px] mb-16 reveal-on-scroll reveal-order-4 ${presetsInView ? 'reveal-in' : ''}`}>
             <h3 className="font-headline text-2xl font-normal mb-6">Or start with a preset</h3>
             <div className="relative">
+              <div className="absolute left-0 top-0 bottom-4 w-16 bg-gradient-to-r from-black to-transparent pointer-events-none z-10" aria-hidden />
+              <div className="absolute right-0 top-0 bottom-4 w-16 bg-gradient-to-l from-black to-transparent pointer-events-none z-10" aria-hidden />
               <div className="reveal-stagger flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
                 {presets.map((preset, i) => (
                   <div key={preset.id} className="flex-shrink-0 w-64">
