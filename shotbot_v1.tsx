@@ -842,7 +842,7 @@ const ShotBot = () => {
           aria-hidden
         />
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
-          <div className="absolute left-0 right-0 top-0 w-full h-full origin-top scale-[0.88] sm:scale-100 transition-transform duration-300 ease-out">
+          <div className="absolute left-0 right-0 top-[2px] sm:top-0 w-full h-full origin-top scale-[0.88] sm:scale-100 transition-transform duration-300 ease-out">
             <div
               className="absolute left-0 right-0 top-0 h-[190%] transition-transform duration-300 ease-out"
               style={{ transform: `translateY(calc(-12% + ${(cardScrollProgress.hero - 0.5) * 140}px))` }}
@@ -864,11 +864,11 @@ const ShotBot = () => {
           />
         </div>
         <div className="absolute inset-0 bg-black/50" aria-hidden />
-        {/* Soft fade at bottom to avoid harsh cut — taller on mobile for smoother transition */}
+        {/* Soft fade at bottom to avoid harsh cut — taller on mobile, softer gradient for no harsh edge */}
         <div
-          className="absolute inset-x-0 bottom-0 h-56 sm:h-48 pointer-events-none"
+          className="absolute inset-x-0 bottom-0 h-64 sm:h-48 pointer-events-none"
           style={{
-            background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0.4) 55%, transparent 100%)',
+            background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.2) 75%, transparent 100%)',
           }}
           aria-hidden
         />
