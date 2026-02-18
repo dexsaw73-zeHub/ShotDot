@@ -190,7 +190,7 @@ body {
 @keyframes back-to-top-in {
   from {
     opacity: 0;
-    transform: translateY(100%);
+    transform: translateY(80px);
   }
   to {
     opacity: 1;
@@ -199,7 +199,7 @@ body {
 }
 
 .back-to-top-pill-enter {
-  animation: back-to-top-in 0.4s ease-out forwards;
+  animation: back-to-top-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Mobile only: modals fill the viewport, solid background, close only via button */
