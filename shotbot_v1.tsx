@@ -778,7 +778,7 @@ const ShotBot = () => {
       </div>
       {/* Fixed nav so it always sticks; transparent over hero, solid when scrolled */}
       <header
-        className="fixed top-4 left-[15px] right-[15px] z-40 bg-transparent"
+        className="fixed top-[19px] left-[15px] right-[15px] z-40 bg-transparent"
       >
         <div className="max-w-[760px] mx-auto px-6 py-3">
           <nav
