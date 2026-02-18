@@ -1306,8 +1306,8 @@ const ShotBot = () => {
           <div className="max-w-7xl px-6">
             <h3 className="font-headline text-2xl font-normal mb-6">Photographer Style</h3>
           </div>
-          <div className="w-full overflow-x-auto pb-4 scrollbar-hide">
-            <div className="reveal-stagger flex gap-4 px-6">
+          <div className="w-full overflow-x-auto pb-4 scrollbar-hide px-6">
+            <div className="reveal-stagger flex gap-4 pr-6">
               {photographers.map((ph, i) => (
                 <div key={ph.name} className="flex-shrink-0 w-64">
                   {/* Card image: blur/scale only when hovering this area (Get prompt) */}
@@ -1376,8 +1376,8 @@ const ShotBot = () => {
           <div className="max-w-7xl px-6">
             <h3 className="font-headline text-2xl font-normal mb-6">Or start with a preset</h3>
           </div>
-          <div className="w-full overflow-x-auto pb-4 scrollbar-hide">
-            <div className="reveal-stagger flex gap-4 px-6">
+          <div className="w-full overflow-x-auto pb-4 scrollbar-hide px-6">
+            <div className="reveal-stagger flex gap-4 pr-6">
               {presets.map((preset, i) => (
                   <div key={preset.id} className="flex-shrink-0 w-64">
                     <button
