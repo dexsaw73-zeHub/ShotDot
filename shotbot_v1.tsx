@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Upload, Wand2, MessageCircle, ChevronDown, ChevronUp, Copy, Check, Loader, X } from 'lucide-react';
+import { Upload, Wand2, MessageCircle, ChevronDown, ChevronUp, Check, Loader, X } from 'lucide-react';
 import annieLeibovitzBg from './images/photographers/annie_.jpg';
 import leibovitzExampleImg from './images/photographers/leibovitzExample_1.png';
 import steveMcCurryBg from './images/photographers/Steve_McCurry_2.jpg';
@@ -25,6 +25,7 @@ import kennaExampleImg from './images/photographers/kennaExample.png';
 import platonBg from './images/photographers/platon.jpg';
 import platonExampleImg from './images/photographers/platonExample_1.png';
 import imageUpSvg from './images/svgs/image-up.svg';
+import imagesSvg from './images/svgs/images.svg';
 import canon5d4Img from './images/camera body/Canon 5D Mark IV.png';
 import sonyA7r4Img from './images/camera body/Sony A7R IV.png';
 import nikonD850Img from './images/camera body/Nikon D850.png';
@@ -1442,8 +1443,9 @@ const ShotBot = () => {
                           <h4 className="font-semibold text-cyan-300">{v.name}</h4>
                           <button
                             onClick={() => copyPrompt(v.prompt)}
-                            className="text-xs px-3 py-1 bg-cyan-600 hover:bg-cyan-700 rounded-lg transition-colors"
+                            className="text-xs px-3 py-1 bg-cyan-600 hover:bg-cyan-700 rounded-lg transition-colors flex items-center gap-1.5"
                           >
+                            <img src={imagesSvg} alt="" className="w-4 h-4" aria-hidden />
                             Copy
                           </button>
                         </div>
@@ -1490,7 +1492,7 @@ const ShotBot = () => {
                 onClick={() => copyPrompt(generatedPrompt)}
                 className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-cyan-600 hover:bg-cyan-700 rounded-xl transition-colors font-semibold"
               >
-                {copiedPrompt ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
+                {copiedPrompt ? <Check className="w-5 h-5" /> : <img src={imagesSvg} alt="" className="w-5 h-5" aria-hidden />}
                 {copiedPrompt ? 'Copied!' : 'Copy Prompt'}
               </button>
               {(selectedPhotographer || selectedPreset) && (
