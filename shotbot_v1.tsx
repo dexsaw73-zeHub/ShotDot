@@ -1303,7 +1303,7 @@ const ShotBot = () => {
       {/* Full-bleed card rows: outside padded container so scroll is edge-to-edge */}
       {!uploadedImage && (
         <div ref={photographerRef} className={`scroll-mt-[100px] mb-16 reveal-on-scroll reveal-order-3 ${photographerInView ? 'reveal-in' : ''}`}>
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl px-6">
             <h3 className="font-headline text-2xl font-normal mb-6">Photographer Style</h3>
           </div>
           <div className="w-full overflow-x-auto pb-4 scrollbar-hide">
@@ -1373,7 +1373,7 @@ const ShotBot = () => {
 
       {!uploadedImage && (
         <div ref={presetsRef} className={`scroll-mt-[100px] mb-6 sm:mb-16 reveal-on-scroll reveal-order-4 ${presetsInView ? 'reveal-in' : ''}`}>
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl px-6">
             <h3 className="font-headline text-2xl font-normal mb-6">Or start with a preset</h3>
           </div>
           <div className="w-full overflow-x-auto pb-4 scrollbar-hide">
