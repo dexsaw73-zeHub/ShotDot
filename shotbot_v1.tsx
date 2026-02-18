@@ -1302,7 +1302,7 @@ const ShotBot = () => {
         {!uploadedImage && (
           <div ref={photographerRef} className={`scroll-mt-[100px] mb-16 reveal-on-scroll reveal-order-3 ${photographerInView ? 'reveal-in' : ''}`}>
             <h3 className="font-headline text-2xl font-normal mb-6">Photographer Style</h3>
-            <div className="card-scroll-full-bleed overflow-x-auto pb-4 scrollbar-hide">
+            <div className="card-scroll-full-bleed overflow-x-auto pb-4 scrollbar-hide" style={{ width: 'calc(100% + 3rem)', marginLeft: '-1.5rem' }}>
               <div className="reveal-stagger flex gap-4 pl-6 pr-6">
               {photographers.map((ph, i) => (
                 <div key={ph.name} className="flex-shrink-0 w-64">
@@ -1371,7 +1371,7 @@ const ShotBot = () => {
         {!uploadedImage && (
           <div ref={presetsRef} className={`scroll-mt-[100px] mb-6 sm:mb-16 reveal-on-scroll reveal-order-4 ${presetsInView ? 'reveal-in' : ''}`}>
             <h3 className="font-headline text-2xl font-normal mb-6">Or start with a preset</h3>
-            <div className="card-scroll-full-bleed relative overflow-x-auto pb-4 scrollbar-hide">
+            <div className="card-scroll-full-bleed relative overflow-x-auto pb-4 scrollbar-hide" style={{ width: 'calc(100% + 3rem)', marginLeft: '-1.5rem' }}>
               <div className="reveal-stagger flex gap-4 pl-6 pr-6">
                 {presets.map((preset, i) => (
                   <div key={preset.id} className="flex-shrink-0 w-64">
