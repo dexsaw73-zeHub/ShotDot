@@ -761,7 +761,7 @@ const ShotBot = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0e1618] p-[15px] cursor-auto sm:cursor-none custom-cursor-root" data-custom-cursor>
+    <div className="min-h-screen bg-[#0d2832] p-[15px] cursor-auto sm:cursor-none custom-cursor-root" data-custom-cursor>
       <div className="overflow-x-hidden" style={{ minHeight: '100%' }}>
       <div
         ref={cursorRef}
