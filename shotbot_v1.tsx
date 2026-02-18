@@ -1934,7 +1934,7 @@ const ShotBot = () => {
               onClick={() => scrollToSection(heroRef)}
               className="back-to-top-pill-enter group flex items-center gap-2 px-4 py-2 rounded-full bg-gray-900/60 border border-gray-700/80 hover:border-cyan-600 hover:bg-gray-800/50 transition-colors"
             >
-              <span className="text-sm text-white">Back to top</span>
+              <span className="text-sm text-white">To the top</span>
             </button>
           </div>
         )}
