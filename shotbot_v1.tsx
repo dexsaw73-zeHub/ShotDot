@@ -298,6 +298,7 @@ const ShotBot = () => {
   const presetsScrollRef = useRef<HTMLDivElement>(null);
   const [variationsRef, variationsInView] = useReveal({ deferScrollReveal: true, deferReady: true });
   const [footerRef, footerInView] = useReveal({ deferScrollReveal: true, deferReady: true });
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   const [cameraSettings, setCameraSettings] = useState({
     shutterSpeed: '1/125',
@@ -439,6 +440,18 @@ const ShotBot = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Show "Back to top" pill when footer scrolls into view
+  useEffect(() => {
+    const el = footerRef?.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setShowBackToTop(!!entry?.isIntersecting),
+      { threshold: 0.1, rootMargin: '0px' }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
@@ -1914,6 +1927,17 @@ const ShotBot = () => {
 
       {/* Footer — Palmer-style continuous marquee */}
       <footer ref={footerRef} className={`border-t border-gray-800 mt-8 sm:mt-20 reveal-on-scroll reveal-order-6 ${footerInView ? 'reveal-in' : ''}`}>
+        {showBackToTop && (
+          <div className="flex justify-center pt-6 pb-2">
+            <button
+              type="button"
+              onClick={() => scrollToSection(heroRef)}
+              className="back-to-top-pill-enter px-5 py-2.5 rounded-full bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-medium transition-colors"
+            >
+              Back to top
+            </button>
+          </div>
+        )}
         <div className="overflow-hidden py-8">
           <div className="flex animate-footer-marquee w-max">
             {[1, 2].map((block) => (
