@@ -842,7 +842,7 @@ const ShotBot = () => {
           aria-hidden
         />
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
-          <div className="absolute left-0 right-0 top-[2px] sm:top-0 w-full h-full origin-top scale-[0.88] sm:scale-100 transition-transform duration-300 ease-out">
+          <div className="absolute left-0 right-0 top-[7px] sm:top-0 w-full h-full origin-top scale-[0.88] sm:scale-100 transition-transform duration-300 ease-out">
             <div
               className="absolute left-0 right-0 top-0 h-[190%] transition-transform duration-300 ease-out"
               style={{ transform: `translateY(calc(-12% + ${(cardScrollProgress.hero - 0.5) * 140}px))` }}
