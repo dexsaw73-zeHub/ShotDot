@@ -178,6 +178,12 @@ body {
   animation: modal-content-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
+/* Card rows: full-bleed scroll to container edges (always in bundle for prod) */
+.card-scroll-full-bleed {
+  width: calc(100% + 3rem);
+  margin-left: -1.5rem;
+}
+
 /* Mobile only: modals fill the viewport, solid background, close only via button */
 @media (max-width: 639px) {
   .modal-overlay {
