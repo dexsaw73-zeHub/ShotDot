@@ -773,7 +773,7 @@ const ShotBot = () => {
                 data-cursor-label="Let's chat"
                 className="group flex items-center gap-2 px-4 py-2 rounded-full bg-gray-900/60 border border-gray-700/80 hover:border-cyan-600 hover:bg-gray-800/50 transition-colors"
               >
-                <MessageCircle className="w-4 h-4 text-white transition-colors duration-300 group-hover:text-cyan-400" />
+                <MessageCircle className="w-4 h-4 text-cyan-400 transition-colors duration-300 group-hover:text-cyan-300" />
                 <span className="text-sm text-white">Ask AI</span>
               </button>
             </div>
