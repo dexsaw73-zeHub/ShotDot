@@ -180,8 +180,10 @@ body {
 
 /* Card rows: full-bleed scroll to container edges (always in bundle for prod) */
 .card-scroll-full-bleed {
-  width: calc(100% + 3rem);
-  margin-left: -1.5rem;
+  width: calc(100% + 3rem) !important;
+  max-width: none !important;
+  margin-left: -1.5rem !important;
+  box-sizing: border-box !important;
 }
 
 /* Mobile only: modals fill the viewport, solid background, close only via button */
