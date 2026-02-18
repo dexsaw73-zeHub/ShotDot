@@ -902,7 +902,7 @@ const ShotBot = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 pb-12 w-full min-w-0 box-border">
+      <div className="max-w-7xl mx-auto px-6 pb-6 sm:pb-12 w-full min-w-0 box-border">
         {/* Photo upload and main content */}
         <div ref={uploadRef} className={`mb-8 sm:mb-16 sticky top-24 z-30 min-w-0 reveal-on-scroll reveal-order-1 ${uploadInView ? 'reveal-in' : ''}`}>
           {/* Main Input Area */}
@@ -970,7 +970,7 @@ const ShotBot = () => {
 
         {/* Advanced Controls — pro camera panel, collapsed by default */}
         {!uploadedImage && (
-          <div ref={advancedRef} className={`mb-16 max-w-[760px] mx-auto bg-gray-900/40 rounded-3xl border border-gray-700/80 overflow-hidden shadow-lg min-w-0 reveal-on-scroll reveal-order-2 transition-[border-color] duration-200 hover:border-cyan-600 ${advancedInView ? 'reveal-in' : ''}`}>
+          <div ref={advancedRef} className={`mb-6 sm:mb-16 max-w-[760px] mx-auto bg-gray-900/40 rounded-3xl border border-gray-700/80 overflow-hidden shadow-lg min-w-0 reveal-on-scroll reveal-order-2 transition-[border-color] duration-200 hover:border-cyan-600 ${advancedInView ? 'reveal-in' : ''}`}>
             <button
               onClick={() => {
                 const opening = !showAdvanced;
@@ -1348,7 +1348,7 @@ const ShotBot = () => {
 
       {/* Full-bleed card rows: outside padded container so scroll is edge-to-edge */}
       {!uploadedImage && (
-        <div ref={photographerRef} className={`scroll-mt-[100px] mb-16 reveal-on-scroll reveal-order-3 ${photographerInView ? 'reveal-in' : ''}`}>
+        <div ref={photographerRef} className={`scroll-mt-[100px] mb-8 sm:mb-16 reveal-on-scroll reveal-order-3 ${photographerInView ? 'reveal-in' : ''}`}>
           <div className="max-w-7xl px-6">
             <h3 className="font-headline text-2xl font-normal mb-6">Photographer Style</h3>
           </div>
