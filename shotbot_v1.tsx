@@ -294,6 +294,8 @@ const ShotBot = () => {
   const advancedGridRef = useRef<HTMLDivElement>(null);
   const [photographerRef, photographerInView] = useReveal({ deferScrollReveal: true, deferReady: true });
   const [presetsRef, presetsInView] = useReveal({ deferScrollReveal: true, deferReady: true });
+  const photographerScrollRef = useRef<HTMLDivElement>(null);
+  const presetsScrollRef = useRef<HTMLDivElement>(null);
   const [variationsRef, variationsInView] = useReveal({ deferScrollReveal: true, deferReady: true });
   const [footerRef, footerInView] = useReveal({ deferScrollReveal: true, deferReady: true });
 
@@ -408,6 +410,36 @@ const ShotBot = () => {
   }, []);
   const navPhotographersActive = photographersNavInView && !presetsNavInView;
   const navPresetsActive = presetsNavInView;
+
+  // Arrow keys: scroll the card row that is in view (photographer or presets)
+  const CARD_SCROLL_AMOUNT = 272; // ~one card width (256) + gap (16)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      const phEl = photographerScrollRef.current;
+      const prEl = presetsScrollRef.current;
+      if (!phEl || !prEl) return;
+      const vh = window.innerHeight;
+      const phRect = phEl.getBoundingClientRect();
+      const prRect = prEl.getBoundingClientRect();
+      const phInView = phRect.top < vh && phRect.bottom > 0;
+      const prInView = prRect.top < vh && prRect.bottom > 0;
+      let target: HTMLDivElement | null = null;
+      if (phInView && prInView) {
+        const phCenter = phRect.top + phRect.height / 2;
+        const prCenter = prRect.top + prRect.height / 2;
+        const viewCenter = vh / 2;
+        target = Math.abs(phCenter - viewCenter) <= Math.abs(prCenter - viewCenter) ? phEl : prEl;
+      } else if (phInView) target = phEl;
+      else if (prInView) target = prEl;
+      if (!target) return;
+      const delta = e.key === 'ArrowRight' ? CARD_SCROLL_AMOUNT : -CARD_SCROLL_AMOUNT;
+      target.scrollBy({ left: delta, behavior: 'smooth' });
+      e.preventDefault();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1307,7 +1339,7 @@ const ShotBot = () => {
           <div className="max-w-7xl px-6">
             <h3 className="font-headline text-2xl font-normal mb-6">Photographer Style</h3>
           </div>
-          <div className="w-full overflow-x-auto pb-4 scrollbar-hide pl-6">
+          <div ref={photographerScrollRef} className="w-full overflow-x-auto pb-4 scrollbar-hide pl-6">
             <div className="reveal-stagger flex gap-4">
               {photographers.map((ph, i) => (
                 <div key={ph.name} className="flex-shrink-0 w-64">
@@ -1378,7 +1410,7 @@ const ShotBot = () => {
           <div className="max-w-7xl px-6">
             <h3 className="font-headline text-2xl font-normal mb-6">Or start with a preset</h3>
           </div>
-          <div className="w-full overflow-x-auto pb-4 scrollbar-hide pl-6">
+          <div ref={presetsScrollRef} className="w-full overflow-x-auto pb-4 scrollbar-hide pl-6">
             <div className="reveal-stagger flex gap-4">
               {presets.map((preset, i) => (
                   <div key={preset.id} className="flex-shrink-0 w-64">
