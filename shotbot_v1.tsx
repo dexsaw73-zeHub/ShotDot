@@ -1495,7 +1495,8 @@ const ShotBot = () => {
               </button>
               {(selectedPhotographer || selectedPreset) && (
                 <p className="mt-4 text-xs text-gray-500 text-left max-w-md">
-                  This prompt is just to get you started. You can use an AI agent of choice to help you expand on the story and subject matter. You can see an example of this by clicking on the photographer&apos;s name below each card.
+                  This prompt is just to get you started. You can use an AI agent of choice to help you expand on the story and subject matter.
+                  {selectedPhotographer && ' You can see an example of this by clicking on the photographer\'s name below each card.'}
                 </p>
               )}
             </div>
