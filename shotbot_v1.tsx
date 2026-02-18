@@ -1445,7 +1445,7 @@ const ShotBot = () => {
                             onClick={() => copyPrompt(v.prompt)}
                             className="text-xs px-3 py-1 bg-cyan-600 hover:bg-cyan-700 rounded-lg transition-colors flex items-center gap-1.5"
                           >
-                            <img src={imagesSvg} alt="" className="w-4 h-4" aria-hidden />
+                            <img src={imagesSvg} alt="" className="w-4 h-4 [filter:invert(1)_brightness(2)]" aria-hidden />
                             Copy
                           </button>
                         </div>
@@ -1492,7 +1492,7 @@ const ShotBot = () => {
                 onClick={() => copyPrompt(generatedPrompt)}
                 className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-cyan-600 hover:bg-cyan-700 rounded-xl transition-colors font-semibold"
               >
-                {copiedPrompt ? <Check className="w-5 h-5" /> : <img src={imagesSvg} alt="" className="w-5 h-5" aria-hidden />}
+                {copiedPrompt ? <Check className="w-5 h-5" /> : <img src={imagesSvg} alt="" className="w-5 h-5 [filter:invert(1)_brightness(2)]" aria-hidden />}
                 {copiedPrompt ? 'Copied!' : 'Copy Prompt'}
               </button>
               {(selectedPhotographer || selectedPreset) && (
