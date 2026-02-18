@@ -1366,7 +1366,7 @@ const ShotBot = () => {
                   </div>
                 </div>
               ))}
-              <div className="flex-shrink-0 w-6" aria-hidden />
+              <div className="flex-shrink-0 w-2" aria-hidden />
             </div>
           </div>
         </div>
@@ -1408,7 +1408,7 @@ const ShotBot = () => {
                     </div>
                   </div>
                 ))}
-              <div className="flex-shrink-0 w-6" aria-hidden />
+              <div className="flex-shrink-0 w-2" aria-hidden />
             </div>
           </div>
         </div>
