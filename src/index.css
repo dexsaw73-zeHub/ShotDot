@@ -186,6 +186,22 @@ body {
   box-sizing: border-box !important;
 }
 
+/* Back to top pill: slide up and fade in when footer is in view */
+@keyframes back-to-top-in {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.back-to-top-pill-enter {
+  animation: back-to-top-in 0.4s ease-out forwards;
+}
+
 /* Mobile only: modals fill the viewport, solid background, close only via button */
 @media (max-width: 639px) {
   .modal-overlay {
